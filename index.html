@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Photo Gallery</title>
+
+  <style>
+    #image {
+      width: 80%;
+      height: 300px;
+      margin: 20px auto;
+      background-color: #eee;
+      background-image: url("");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      border: 3px solid black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .gallery {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .gallery img {
+      width: 200px;
+      height: 140px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid #333;
+    }
+
+    .gallery img:hover {
+      border-color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <h1 style="text-align:center">Interactive Photo Gallery</h1>
+
+  <div id="image">
+    Hover over an image below to display here.
+  </div>
+
+  <div class="gallery">
+    <img
+      src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600"
+      alt="Beautiful mountain landscape"
+      onmouseover="upDate(this)"
+      onmouseleave="undo()"
+    >
+
+    <img
+      src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=600"
+      alt="Mountain lake surrounded by trees"
+      onmouseover="upDate(this)"
+      onmouseleave="undo()"
+    >
+
+    <img
+      src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600"
+      alt="Sunrise over a green landscape"
+      onmouseover="upDate(this)"
+      onmouseleave="undo()"
+    >
+  </div>
+
+  <script>
+    function upDate(previewPic) {
+      console.log("Mouse over image!");
+      console.log("Alt:", previewPic.alt);
+      console.log("Source:", previewPic.src);
+
+      document.getElementById("image").innerHTML =
+        previewPic.alt;
+
+      document.getElementById("image").style.backgroundImage =
+        "url('" + previewPic.src + "')";
+    }
+
+    function undo() {
+      console.log("Mouse left image!");
+
+      document.getElementById("image").style.backgroundImage =
+        'url("")';
+
+      document.getElementById("image").innerHTML =
+        "Hover over an image below to display here.";
+    }
+  </script>
+</body>
+</html>
