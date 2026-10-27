@@ -3,24 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Photo Gallery</title>
+  <title>Accessible Interactive Photo Gallery</title>
 
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      text-align: center;
+      background-color: #ffffff;
+      color: #222222;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
     #image {
-      width: 80%;
+      width: 85%;
       height: 300px;
       margin: 20px auto;
-      background-color: #eee;
+      background-color: #eeeeee;
       background-image: url("");
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
-      border: 3px solid black;
+      border: 3px solid #222222;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      font-size: 24px;
+      padding: 10px;
+      box-sizing: border-box;
+      font-size: 22px;
       font-weight: bold;
     }
 
@@ -29,59 +43,132 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 15px;
+      margin: 20px auto;
     }
 
-    .gallery img {
+    figure {
+      margin: 0;
+      width: 200px;
+    }
+
+    figure img {
       width: 200px;
       height: 140px;
       object-fit: cover;
+      border: 3px solid #333333;
       cursor: pointer;
-      border: 2px solid #333;
+      box-sizing: border-box;
     }
 
-    .gallery img:hover {
-      border-color: blue;
+    figure img:hover,
+    figure img:focus {
+      border: 5px solid #005fcc;
+      outline: 3px solid #ffbf47;
+      outline-offset: 2px;
+    }
+
+    figcaption {
+      margin-top: 8px;
+      font-size: 14px;
     }
   </style>
 </head>
 
-<body>
-  <h1 style="text-align:center">Interactive Photo Gallery</h1>
+<body onload="addTabindex()">
 
-  <div id="image">
+  <h1>Accessible Interactive Photo Gallery</h1>
+
+  <p>
+    Hover over an image or use the Tab key to explore the gallery.
+  </p>
+
+  <div id="image" role="status" aria-live="polite">
     Hover over an image below to display here.
   </div>
 
   <div class="gallery">
-    <img
-      src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600"
-      alt="Beautiful mountain landscape"
-      onmouseover="upDate(this)"
-      onmouseleave="undo()"
-    >
 
-    <img
-      src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=600"
-      alt="Mountain lake surrounded by trees"
-      onmouseover="upDate(this)"
-      onmouseleave="undo()"
-    >
+    <figure>
+      <img
+        src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600"
+        alt="A scenic mountain landscape beneath the sky"
+        onmouseover="upDate(this)"
+        onmouseleave="undo()"
+        onfocus="upDate(this)"
+        onblur="undo()"
+      >
+      <figcaption>Mountain landscape</figcaption>
+    </figure>
 
-    <img
-      src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600"
-      alt="Sunrise over a green landscape"
-      onmouseover="upDate(this)"
-      onmouseleave="undo()"
-    >
+    <figure>
+      <img
+        src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=600"
+        alt="A peaceful lake surrounded by mountains and trees"
+        onmouseover="upDate(this)"
+        onmouseleave="undo()"
+        onfocus="upDate(this)"
+        onblur="undo()"
+      >
+      <figcaption>Mountain lake</figcaption>
+    </figure>
+
+    <figure>
+      <img
+        src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600"
+        alt="Golden sunlight shining over a green field at sunrise"
+        onmouseover="upDate(this)"
+        onmouseleave="undo()"
+        onfocus="upDate(this)"
+        onblur="undo()"
+      >
+      <figcaption>Sunrise</figcaption>
+    </figure>
+
+    <figure>
+      <img
+        src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=600"
+        alt="Wild deer standing in a natural forest landscape"
+        onmouseover="upDate(this)"
+        onmouseleave="undo()"
+        onfocus="upDate(this)"
+        onblur="undo()"
+      >
+      <figcaption>Wildlife</figcaption>
+    </figure>
+
+    <figure>
+      <img
+        src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600"
+        alt="Sunlight filtering through a lush green forest"
+        onmouseover="upDate(this)"
+        onmouseleave="undo()"
+        onfocus="upDate(this)"
+        onblur="undo()"
+      >
+      <figcaption>Green forest</figcaption>
+    </figure>
+
+    <figure>
+      <img
+        src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600"
+        alt="Blue ocean waves reaching a sandy beach"
+        onmouseover="upDate(this)"
+        onmouseleave="undo()"
+        onfocus="upDate(this)"
+        onblur="undo()"
+      >
+      <figcaption>Ocean beach</figcaption>
+    </figure>
+
   </div>
 
   <script>
     function upDate(previewPic) {
-      console.log("Mouse over image!");
-      console.log("Alt:", previewPic.alt);
-      console.log("Source:", previewPic.src);
+      console.log("Image focused or hovered!");
+      console.log("Alt text:", previewPic.alt);
+      console.log("Image source:", previewPic.src);
 
-      document.getElementById("image").innerHTML =
+      document.getElementById("image").textContent =
         previewPic.alt;
 
       document.getElementById("image").style.backgroundImage =
@@ -89,14 +176,26 @@
     }
 
     function undo() {
-      console.log("Mouse left image!");
+      console.log("Image blurred or mouse left!");
 
       document.getElementById("image").style.backgroundImage =
         'url("")';
 
-      document.getElementById("image").innerHTML =
+      document.getElementById("image").textContent =
         "Hover over an image below to display here.";
     }
+
+    function addTabindex() {
+      console.log("Page loaded. Adding tabindex to images.");
+
+      var images = document.querySelectorAll(".gallery img");
+
+      for (var i = 0; i < images.length; i++) {
+        images[i].setAttribute("tabindex", "0");
+        console.log("Added tabindex to image:", i + 1);
+      }
+    }
   </script>
+
 </body>
 </html>
